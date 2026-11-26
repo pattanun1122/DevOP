@@ -21,7 +21,7 @@
       </q-card-section>
     </q-card>
 
-    <q-card>
+    <q-card class="q-mb-md">
       <q-card-section>
         <div class="text-h6">Docker Concepts (สรุปสั้น ๆ)</div>
         <q-list bordered separator class="q-mt-sm">
@@ -29,6 +29,23 @@
             <q-item-section>
               <q-item-label>{{ item.title }}</q-item-label>
               <q-item-label caption>{{ item.detail }}</q-item-label>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </q-card-section>
+    </q-card>
+
+    <!-- การ์ดที่เพิ่มใหม่ตามโจทย์การบ้าน -->
+    <q-card>
+      <q-card-section>
+        <div class="text-h6">Docker Quick Reference (คำสั่งพื้นฐานที่ใช้บ่อย)</div>
+        <q-list bordered separator class="q-mt-sm">
+          <q-item v-for="(cmd, index) in dockerCommands" :key="index">
+            <q-item-section>
+              <q-item-label class="text-weight-bold text-primary">
+                <code>{{ cmd.command }}</code>
+              </q-item-label>
+              <q-item-label caption>{{ cmd.description }}</q-item-label>
             </q-item-section>
           </q-item>
         </q-list>
@@ -77,6 +94,30 @@ const dockerItems = [
   {
     title: 'Network',
     detail: 'ให้บริการใน Docker ติดต่อกันได้ เช่น Nginx ส่งต่อคำขอไปยัง Express',
+  },
+]
+
+// รายการคำสั่ง Docker / Docker Compose (5 คำสั่ง)
+const dockerCommands = [
+  {
+    command: 'docker compose up -d --build',
+    description: 'ใช้เมื่อต้องการ build image ใหม่และสั่งรันทุก service ใน docker-compose.yml แบบทำงานเบื้องหลัง (detached mode)',
+  },
+  {
+    command: 'docker compose down',
+    description: 'ใช้เมื่อต้องการหยุดการทำงานและลบ container รวมถึง network ที่สร้างจาก Docker Compose ออกทั้งหมด',
+  },
+  {
+    command: 'docker ps',
+    description: 'ใช้ตรวจสอบรายชื่อและสถานะของ container ที่กำลังรันอยู่ในปัจจุบัน พร้อมดูพอร์ตที่เชื่อมต่อ',
+  },
+  {
+    command: 'docker compose logs -f',
+    description: 'ใช้ดูบันทึกการทำงาน (logs) ของ service แบบเรียลไทม์ เพื่อตรวจสอบข้อผิดพลาดหรือสถานะการรันแอป',
+  },
+  {
+    command: 'docker exec -it <container_name> sh',
+    description: 'ใช้เมื่อต้องการเข้าไปพิมพ์คำสั่งภายใน shell ของ container ที่กำลังรันอยู่เพื่อดีบักหรือตรวจสอบไฟล์',
   },
 ]
 </script>
